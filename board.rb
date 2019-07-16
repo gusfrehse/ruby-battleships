@@ -19,7 +19,15 @@ class Board
       @@ships[code].length >= @width - x 
     # It fits in the horizontal
     # By now there only ships in the horizontal so i am not checking for the vertical
-    @@ships[code].each_char.with_index { |e, index| @board[y][x + index] = e }
+    # TODO : need a way to check if it will fit with another ship already
+    # Put the ship in the desired position
+    @@ships[code].each_char.with_index do |e, index| 
+      if @board[y][x + index] != '~'
+        raise ArgumentError, 'the ship does not fit because there is already a ship in the desired place'
+      else
+        @board[y][x + index] = e
+      end
+    end
   end
 
   def to_s
@@ -37,5 +45,6 @@ class Board
   end
 end
 b = Board.new( 10, 10 )
-b.put_ship( :A, 3, 5 )
+b.put_ship( :B, 3, 5 )
+b.put_ship( :C, 4, 6 )
 puts b.to_s
