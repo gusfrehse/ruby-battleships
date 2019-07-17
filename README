@@ -1,3 +1,4 @@
-This is my first project in Ruby. It is based on the Battleships game, and is very simple.
-It is not yet finished. To run just do `ruby main.rb' in the directory of `main.rb'.
-You need to have Ruby installed on your computer to run the program.
+This is my first project in Ruby. It is based on the Battleships game, and is
+very simple. It is not yet finished. To run just do `ruby main.rb' in the
+directory of `main.rb'. You need to have Ruby installed on your computer to run
+the program.
