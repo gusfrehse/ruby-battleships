@@ -1,10 +1,10 @@
 class Board
   @@ships = { :A => [ ['A', '+', '+'] ],
-              :B => [ ['B', '+', '~'],
+              :B => [ ['~', 'B', '~'],
                       ['+', '+', '+'] ],
-              :C => [ ['C'],
+              :C => [ ['+'],
                       ['+'],
-                      ['+'] ] }
+                      ['C'] ] }
 
   def initialize( width, height )
     raise ArgumentError, 'width and height must be bigger than five and less \
@@ -14,12 +14,21 @@ class Board
     @board = ( Array.new( height ) { Array.new( width ) } )
     @board = @board.collect { |l| l.collect { '~' } }
   end
+  def ship_head_position( code )
+    arr = Array.new
+    @@ships[code].each_with_index do |line, dy|
+      line.each_with_index do |value, dx|
+        if ('A'..'Z') === value
+          arr << dx << dy
+        end
+      end
+    end
+    arr[0, 2]
+  end
 
   def put_ship( code, hx, hy )
-    # TODO : the ship's head is expected to be in the top left corner in the
-    # design, we don't want that in the final result
-    hdy = 0
-    hdx = 0
+    hdx = self.ship_head_position( code )[0]
+    hdy = self.ship_head_position( code )[1]
     @@ships[code].each_with_index do |line, dy|
       line.each_with_index do |value, dx|
         by = dy - hdy + hy
@@ -40,7 +49,11 @@ class Board
 
   def to_s
     ret = ""
+    ret << "  "
+    (0...@width).each { |n| ret << "  " + n.to_s }
+    ret << "\n"
     @board.each_with_index do |line, y|
+      ret << " " + y.to_s + " "
       line.each_with_index do |value, x|
         ret << "|#{ value }|"
       end
@@ -49,8 +62,3 @@ class Board
     ret
   end
 end
-b = Board.new( 10, 10 )
-b.put_ship( :A, 6, 5 )
-b.put_ship( :B, 4, 3 )
-b.put_ship( :C, 0, 0 )
-puts b.to_s
