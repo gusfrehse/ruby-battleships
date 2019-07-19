@@ -1,6 +1,8 @@
 # This is supposed to be a Battleships game.
 # only supposed because I almosted never
 # finish my projects.
+require_relative "board"
+
 class Application
   @@board01 = "board 01 test lul\n"
 
@@ -28,7 +30,46 @@ class Application
 
   def run( width, height )
     puts "Starting game"
-    self.select_phase
+    b1 = Board.new( width, height )
+    b2 = Board.new( width, height )
+
+    puts "01 enter three positions"
+    pos = gets
+    pos.strip!
+    posa = pos.split( " " )
+    b1.put_ship( :A,  posa[0].to_i, posa[1].to_i )
+    puts b1.to_s
+    pos = gets
+    pos.strip!
+    posa = pos.split( " " )
+    b1.put_ship( :B,  posa[0].to_i, posa[1].to_i )
+    puts b1.to_s
+    pos = gets
+    pos.strip!
+    posa = pos.split( " " )
+    b1.put_ship( :C,  posa[0].to_i, posa[1].to_i )
+    puts b1.to_s
+    puts "This is your board now"
+    puts b1.to_s
+
+    puts "02 enter three positions"
+    pos = gets
+    pos.strip!
+    posa = pos.split( " " )
+    b2.put_ship( :A,  posa[0].to_i, posa[1].to_i )
+    puts b2.to_s
+    pos = gets
+    pos.strip!
+    posa = pos.split( " " )
+    b2.put_ship( :B,  posa[0].to_i, posa[1].to_i )
+    puts b2.to_s
+    pos = gets
+    pos.strip!
+    posa = pos.split( " " )
+    b2.put_ship( :C,  posa[0].to_i, posa[1].to_i )
+    puts b2.to_s
+    puts "This is your board now"
+    puts b2.to_s
   end
 end
 
